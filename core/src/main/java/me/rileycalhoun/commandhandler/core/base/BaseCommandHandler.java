@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class BaseCommandHandler implements CommandHandler {
 
-    private final List<CommandData> commands = new ArrayList<>();
+    protected final List<CommandData> commands = new ArrayList<>();
     private CommandHelpWriter writer;
     private CommandResolver resolver;
 
@@ -27,26 +27,8 @@ public class BaseCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void registerCommands(Object obj) {
-        Class<?> clazz = obj.getClass();
-        // Check if the class has the command annotation attached
-        if(clazz.isAnnotationPresent(Command.class)) {
-            Command info = clazz.getAnnotation(Command.class);
-            BaseCommandData command = new BaseCommandData(info, true, obj, null, null, this);
-            for(Method m : Arrays.stream(clazz.getMethods()).filter(m -> m.isAnnotationPresent(SubCommand.class)).toList()) {
-                SubCommand subCommandInfo = m.getAnnotation(SubCommand.class);
-                CommandData subCommand = new BaseCommandData(subCommandInfo, false, null, m, command, this);
-                command.addSubCommand(subCommand);
-                commands.add(command);
-            }
-        } else {
-            // Check methods inside class
-            for(Method m : Arrays.stream(clazz.getMethods()).filter(m -> m.isAnnotationPresent(Command.class)).toList()) {
-                Command info = m.getAnnotation(Command.class);
-                CommandData command = new BaseCommandData(info, true, obj, m, null, this);
-                commands.add(command);
-            }
-        }
+    public void registerCommands(Object instance) {
+        commands.add(new BaseCommandData(this, instance, null, null));
     }
 
     @Override

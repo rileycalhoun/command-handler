@@ -2,7 +2,6 @@ package me.rileycalhoun.commandhandler.spigot.base;
 
 import me.rileycalhoun.commandhandler.core.CommandHandler;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandHandler;
-import me.rileycalhoun.commandhandler.spigot.SpigotCommandData;
 import me.rileycalhoun.commandhandler.spigot.SpigotCommandHandler;
 import me.rileycalhoun.commandhandler.spigot.SpigotCommandSubject;
 import me.rileycalhoun.commandhandler.spigot.TabSuggestionProvider;
@@ -24,6 +23,11 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
     public SpigotHandler(@NotNull Plugin plugin) {
         super();
         this.plugin = plugin;
+    }
+
+    @Override
+    public void registerCommands(@NotNull Object instance) {
+        commands.add(new SpigotCommandData(this, instance, null, null));
     }
 
     @Override
