@@ -34,7 +34,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
             sender.reply(message);
         } else {
             sender.reply("An error ocurred while executing this command. Check the console for more details.");
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
