@@ -1,15 +1,15 @@
 package me.rileycalhoun.commandhandler.spigot.base;
 
 import me.rileycalhoun.commandhandler.core.CommandHandler;
-import me.rileycalhoun.commandhandler.core.base.BaseCommandResolver;
+import me.rileycalhoun.commandhandler.core.base.BaseCommandDispatcher;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class SpigotResolver extends BaseCommandResolver implements CommandExecutor {
+public class SpigotDispatcher extends BaseCommandDispatcher implements CommandExecutor {
 
-    public SpigotResolver(CommandHandler commandHandler) {
+    public SpigotDispatcher(CommandHandler commandHandler) {
         super(commandHandler);
     }
 
@@ -20,8 +20,7 @@ public class SpigotResolver extends BaseCommandResolver implements CommandExecut
         else if (args.length == 1) commandString.append(" ").append(args[0]);
         SpigotSubject subject = new SpigotSubject(sender);
         SpigotContext context = new SpigotContext(subject, command);
-        execute(commandString.toString(), context);
-        System.out.println(commandString);
+        execute(context, commandString.toString().split(" "));
         return true;
     }
 

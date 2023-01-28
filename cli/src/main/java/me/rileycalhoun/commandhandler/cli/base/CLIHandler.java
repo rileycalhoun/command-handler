@@ -13,7 +13,7 @@ public class CLIHandler extends BaseCommandHandler implements ConsoleCommandHand
     final Scanner reader;
     final OutputStream out;
     final CLISubject console;
-    final CLIResolver resolver;
+    final CLIDispatcher dispatcher;
 
     public CLIHandler(Scanner reader, PrintStream out)
     {
@@ -21,12 +21,12 @@ public class CLIHandler extends BaseCommandHandler implements ConsoleCommandHand
         this.reader = reader;
         this.out = out;
         this.console = new CLISubject(out);
-        this.resolver = new CLIResolver(this);
+        this.dispatcher = new CLIDispatcher(this);
     }
 
     @Override
     public void requestInput() {
-        resolver.begin(reader);
+        dispatcher.begin(reader);
     }
 
     @Override

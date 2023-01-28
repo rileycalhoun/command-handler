@@ -1,6 +1,7 @@
 package me.rileycalhoun.commandhandler.spigot.base;
 
 import me.rileycalhoun.commandhandler.spigot.SpigotCommandSubject;
+import me.rileycalhoun.commandhandler.spigot.exception.SenderNotPlayerException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -50,7 +51,9 @@ public class SpigotSubject implements SpigotCommandSubject {
 
     @Override
     public @NotNull Player requirePlayer() {
-        return null;
+        if(!(sender instanceof Player))
+            throw new SenderNotPlayerException();
+        return (Player) sender;
     }
 
 }

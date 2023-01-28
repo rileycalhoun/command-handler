@@ -1,7 +1,5 @@
 package me.rileycalhoun.commandhandler.spigot.base;
 
-import me.rileycalhoun.commandhandler.core.CommandData;
-import me.rileycalhoun.commandhandler.core.CommandResolver;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandData;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandHandler;
 import me.rileycalhoun.commandhandler.core.base.Utils;
@@ -55,7 +53,7 @@ public class SpigotCommandData extends BaseCommandData implements me.rileycalhou
             super.getDescription();
             PluginCommand cmd = commandConstructor.newInstance(name, plugin);
             commandMap.register(plugin.getName(), cmd);
-            SpigotResolver resolver = new SpigotResolver(handler);
+            SpigotDispatcher resolver = new SpigotDispatcher(handler);
             cmd.setExecutor(resolver);
             cmd.setDescription(getDescription() == null ? "" : getDescription());
             cmd.setAliases(Arrays.asList(getAliases()));

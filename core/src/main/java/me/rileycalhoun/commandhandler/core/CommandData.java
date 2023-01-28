@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 public interface CommandData {
 
@@ -18,7 +19,6 @@ public interface CommandData {
     @Nullable CommandData getParent();
     @Nullable Method getMethod();
     @Nullable Object getInstance();
-    @Nullable List<CommandData> getSubCommands();
-    void execute(CommandContext context, String[] args) throws InvocationTargetException, IllegalAccessException;
+    @NotNull Map<String, CommandData> getSubCommands();
 
 }

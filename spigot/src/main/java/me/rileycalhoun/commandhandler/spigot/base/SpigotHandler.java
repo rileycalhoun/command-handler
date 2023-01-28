@@ -1,14 +1,10 @@
 package me.rileycalhoun.commandhandler.spigot.base;
 
-import me.rileycalhoun.commandhandler.core.CommandHandler;
 import me.rileycalhoun.commandhandler.core.CommandHelpWriter;
-import me.rileycalhoun.commandhandler.core.CommandResolver;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandHandler;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandHelpWriter;
 import me.rileycalhoun.commandhandler.spigot.SpigotCommandHandler;
-import me.rileycalhoun.commandhandler.spigot.SpigotCommandSubject;
 import me.rileycalhoun.commandhandler.spigot.TabSuggestionProvider;
-import org.bukkit.command.Command;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,12 +18,12 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
     final Map<Class<?>, TabSuggestionProvider> tabByParam = new HashMap<>();
 
     final Plugin plugin;
-    final SpigotResolver commandResolver;
+    final SpigotDispatcher dispatcher;
     final CommandHelpWriter helpWriter;
 
     public SpigotHandler(@NotNull Plugin plugin) {
         this.plugin = plugin;
-        this.commandResolver = new SpigotResolver(this);
+        this.dispatcher = new SpigotDispatcher(this);
         this.helpWriter = new BaseCommandHelpWriter();
         this.registerCommands(plugin);
     }
@@ -39,7 +35,9 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
 
     @Override
     public void registerCommands(@NotNull Object instance) {
-        commands.add(new SpigotCommandData(this, instance, null, null));
+        SpigotCommandData data = new SpigotCommandData(this, instance, null, null);
+        if(data.getName() == null) return;
+        commands.put(data.getName(), data);
     }
 
     @Override

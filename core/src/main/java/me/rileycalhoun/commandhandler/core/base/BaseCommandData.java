@@ -1,9 +1,6 @@
 package me.rileycalhoun.commandhandler.core.base;
 
-import me.rileycalhoun.commandhandler.core.CommandContext;
 import me.rileycalhoun.commandhandler.core.CommandData;
-import me.rileycalhoun.commandhandler.core.CommandHandler;
-import me.rileycalhoun.commandhandler.core.CommandResolver;
 import me.rileycalhoun.commandhandler.core.annotation.AnnotationReader;
 import me.rileycalhoun.commandhandler.core.annotation.Command;
 import me.rileycalhoun.commandhandler.core.annotation.SubCommand;
@@ -11,11 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static me.rileycalhoun.commandhandler.core.base.Utils.ensureAccessible;
 import static me.rileycalhoun.commandhandler.core.base.Utils.getType;
@@ -28,7 +22,7 @@ public class BaseCommandData implements CommandData {
     private String[] aliases;
 
     private Method method;
-    private List<CommandData> subCommands;
+    private final Map<String, CommandData> subCommands;
     private CommandData parent;
 
     protected final BaseCommandHandler handler;
@@ -43,10 +37,10 @@ public class BaseCommandData implements CommandData {
     {
         this.instance = instance;
         this.handler = handler;
+        this.subCommands = new HashMap<>();
 
         if(ae == null) ae = getType(instance);
         if(ae instanceof Class) {
-            this.subCommands = new ArrayList<>();
             AnnotationReader classAnnotations = this.annotationReader = new AnnotationReader(ae);
             if(classAnnotations.has(Command.class)) {
                 Command info = classAnnotations.get(Command.class);
@@ -64,7 +58,8 @@ public class BaseCommandData implements CommandData {
                     this.addSubCommand(subCommand);
                 } else if (reader.has(Command.class)) {
                     CommandData command = newCommand(handler, instance, null, method);
-                    handler.commands.add(command);
+                    if(command.getName() == null) return;
+                    handler.commands.put(command.getName(), command);
                 }
             }
         } else {
@@ -89,13 +84,11 @@ public class BaseCommandData implements CommandData {
 
     @Override
     public String getName() {
-        System.out.println(this.name);
         return name;
     }
 
     @Override
     public @Nullable String getDescription() {
-        System.out.println(this.description);
         return description;
     }
 
@@ -125,29 +118,8 @@ public class BaseCommandData implements CommandData {
     }
 
     @Override
-    public @Nullable List<CommandData> getSubCommands() {
+    public @NotNull Map<String, CommandData> getSubCommands() {
         return subCommands;
-    }
-
-    @Override
-    public void execute(CommandContext context, String[] args) throws InvocationTargetException, IllegalAccessException {
-        if(this.getMethod() != null) {
-            System.out.println("test");
-            if(this.getInstance() == null && this.getParent() != null)
-                this.getMethod().invoke(this.getParent().getInstance(), context, args);
-            else this.getMethod().invoke(this.getInstance(), context, args);
-        } else {
-            if(args.length == 0)
-            {
-                context.getSubject().reply(new BaseCommandHelpWriter().write(getSubCommands()));
-                return;
-            }
-
-            String name = args[0];
-            String[] newArgs = Arrays.copyOfRange(args, 1, args.length);
-            CommandData data = new BaseCommandResolver(handler).find(name, getSubCommands());
-            data.execute(context, newArgs);
-        }
     }
 
     protected BaseCommandData newCommand(BaseCommandHandler handler, Object o, BaseCommandData parent, AnnotatedElement ae) {
@@ -155,7 +127,10 @@ public class BaseCommandData implements CommandData {
     }
 
     public void addSubCommand(@NotNull CommandData subCommand) {
-        this.subCommands.add(subCommand);
+        if(subCommand.getName() == null) return;
+        this.subCommands.put(subCommand.getName(), subCommand);
+        for(String alias : subCommand.getAliases())
+            this.subCommands.put(alias, subCommand);
     }
 
 }

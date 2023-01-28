@@ -1,32 +1,36 @@
 package me.rileycalhoun.commandhandler.core.base;
 
 import me.rileycalhoun.commandhandler.core.CommandData;
+import me.rileycalhoun.commandhandler.core.CommandDispatcher;
 import me.rileycalhoun.commandhandler.core.CommandHandler;
 import me.rileycalhoun.commandhandler.core.CommandHelpWriter;
-import me.rileycalhoun.commandhandler.core.CommandResolver;
-import me.rileycalhoun.commandhandler.core.annotation.Command;
-import me.rileycalhoun.commandhandler.core.annotation.SubCommand;
+import me.rileycalhoun.commandhandler.core.exception.ExceptionHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 public class BaseCommandHandler implements CommandHandler {
 
-    protected final List<CommandData> commands = new ArrayList<>();
+    protected final Map<String, CommandData> commands = new HashMap<>();
+    private ExceptionHandler exceptionHandler;
     private CommandHelpWriter writer;
 
     public BaseCommandHandler () {
+        this.exceptionHandler = new DefaultExceptionHandler();
         this.writer = new BaseCommandHelpWriter();
     }
 
     @Override
     public void registerCommands(@NotNull Object instance) {
-        commands.add(new BaseCommandData(this, instance, null, null));
+        BaseCommandData data = new BaseCommandData(this, instance, null, null);
+        if(data.name == null) return;
+        commands.put(data.name, data);
+        for(String alias : data.getAliases())
+            commands.put(alias, data);
     }
 
     @Override
@@ -40,7 +44,17 @@ public class BaseCommandHandler implements CommandHandler {
     }
 
     @Override
-    public @NotNull @UnmodifiableView List<CommandData> getCommands() {
+    public @NotNull ExceptionHandler getExceptionHandler() {
+        return exceptionHandler;
+    }
+
+    @Override
+    public void setExceptionHandler(@NotNull ExceptionHandler exceptionHandler) {
+
+    }
+
+    @Override
+    public @NotNull @UnmodifiableView Map<String, CommandData> getCommands() {
         return commands;
     }
 
