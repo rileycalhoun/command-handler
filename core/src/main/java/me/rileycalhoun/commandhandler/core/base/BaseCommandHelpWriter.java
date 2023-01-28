@@ -3,7 +3,6 @@ package me.rileycalhoun.commandhandler.core.base;
 import me.rileycalhoun.commandhandler.core.CommandData;
 import me.rileycalhoun.commandhandler.core.CommandHelpWriter;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

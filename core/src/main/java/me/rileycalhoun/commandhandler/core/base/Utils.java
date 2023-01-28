@@ -33,6 +33,7 @@ public class Utils {
             object.setAccessible(true);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>> Class<T> toEnum(@NotNull Class<?> type) {
         return (Class<T>) type;
     }

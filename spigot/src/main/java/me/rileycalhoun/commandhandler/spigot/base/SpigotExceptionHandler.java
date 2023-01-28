@@ -7,7 +7,6 @@ import me.rileycalhoun.commandhandler.core.CommandSubject;
 import me.rileycalhoun.commandhandler.core.exception.ExceptionHandler;
 import me.rileycalhoun.commandhandler.core.exception.InvalidCommandException;
 import me.rileycalhoun.commandhandler.core.exception.SimpleCommandException;
-import me.rileycalhoun.commandhandler.spigot.SpigotCommandSubject;
 import me.rileycalhoun.commandhandler.spigot.exception.SenderNotPlayerException;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;

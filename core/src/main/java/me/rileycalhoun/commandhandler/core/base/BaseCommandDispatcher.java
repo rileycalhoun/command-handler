@@ -1,13 +1,10 @@
 package me.rileycalhoun.commandhandler.core.base;
 
 import me.rileycalhoun.commandhandler.core.*;
-import me.rileycalhoun.commandhandler.core.exception.CommandException;
 import me.rileycalhoun.commandhandler.core.exception.InvalidCommandException;
 import me.rileycalhoun.commandhandler.core.exception.MissingSubCommandException;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.List;
 
 public class BaseCommandDispatcher implements CommandDispatcher {
 

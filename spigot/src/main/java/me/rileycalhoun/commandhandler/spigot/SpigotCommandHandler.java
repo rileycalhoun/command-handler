@@ -2,7 +2,6 @@ package me.rileycalhoun.commandhandler.spigot;
 
 import me.rileycalhoun.commandhandler.core.CommandHandler;
 import me.rileycalhoun.commandhandler.spigot.base.SpigotHandler;
-import org.bukkit.command.Command;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 

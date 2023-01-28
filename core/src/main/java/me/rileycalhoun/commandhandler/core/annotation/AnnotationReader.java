@@ -20,6 +20,7 @@ public class AnnotationReader {
         return annotations.containsKey(type);
     }
 
+    @SuppressWarnings("unchecked")
     public <A extends Annotation> A get(Class<A> type) {
         return (A) annotations.get(type);
     }

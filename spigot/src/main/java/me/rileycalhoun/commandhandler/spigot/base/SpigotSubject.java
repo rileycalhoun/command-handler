@@ -10,14 +10,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class SpigotSubject implements SpigotCommandSubject {
+public record SpigotSubject(CommandSender sender) implements SpigotCommandSubject {
 
     private static final UUID CONSOLE_UUID = new UUID(0, 0);
-    final CommandSender sender;
-
-    public SpigotSubject(CommandSender sender) {
-        this.sender = sender;
-    }
 
     @Override
     public @NotNull String getName() {
@@ -35,11 +30,6 @@ public class SpigotSubject implements SpigotCommandSubject {
     }
 
     @Override
-    public CommandSender getSender() {
-        return this.sender;
-    }
-
-    @Override
     public boolean isPlayer() {
         return sender instanceof Player;
     }
@@ -51,7 +41,7 @@ public class SpigotSubject implements SpigotCommandSubject {
 
     @Override
     public @NotNull Player requirePlayer() {
-        if(!(sender instanceof Player))
+        if (!(sender instanceof Player))
             throw new SenderNotPlayerException();
         return (Player) sender;
     }

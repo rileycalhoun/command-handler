@@ -1,16 +1,13 @@
 package me.rileycalhoun.commandhandler.core.base;
 
 import me.rileycalhoun.commandhandler.core.CommandData;
-import me.rileycalhoun.commandhandler.core.CommandDispatcher;
 import me.rileycalhoun.commandhandler.core.CommandHandler;
 import me.rileycalhoun.commandhandler.core.CommandHelpWriter;
 import me.rileycalhoun.commandhandler.core.exception.ExceptionHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BaseCommandHandler implements CommandHandler {
@@ -50,7 +47,7 @@ public class BaseCommandHandler implements CommandHandler {
 
     @Override
     public void setExceptionHandler(@NotNull ExceptionHandler exceptionHandler) {
-
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override

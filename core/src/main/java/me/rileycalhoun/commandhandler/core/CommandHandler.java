@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public interface CommandHandler {

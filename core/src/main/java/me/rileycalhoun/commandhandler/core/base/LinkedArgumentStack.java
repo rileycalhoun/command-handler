@@ -1,7 +1,6 @@
 package me.rileycalhoun.commandhandler.core.base;
 
 import me.rileycalhoun.commandhandler.core.ArgumentStack;
-import me.rileycalhoun.commandhandler.core.CommandHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 

@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 public interface SpigotCommandSubject extends CommandSubject {
 
-    CommandSender getSender();
+    CommandSender sender();
 
     boolean isPlayer();
 
