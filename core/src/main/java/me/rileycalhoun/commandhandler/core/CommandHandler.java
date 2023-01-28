@@ -13,9 +13,6 @@ public interface CommandHandler {
     @NotNull CommandHelpWriter getHelpWriter();
     void setHelpWriter(@NotNull CommandHelpWriter writer);
 
-    @NotNull CommandResolver getCommandResolver();
-    void setCommandResolver(@NotNull CommandResolver resolver);
-
     @NotNull @UnmodifiableView List<CommandData> getCommands();
 
     default void registerCommands(@NotNull Object... objects) {

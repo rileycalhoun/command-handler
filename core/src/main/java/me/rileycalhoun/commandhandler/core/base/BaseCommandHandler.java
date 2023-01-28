@@ -19,15 +19,13 @@ public class BaseCommandHandler implements CommandHandler {
 
     protected final List<CommandData> commands = new ArrayList<>();
     private CommandHelpWriter writer;
-    private CommandResolver resolver;
 
     public BaseCommandHandler () {
         this.writer = new BaseCommandHelpWriter();
-        this.resolver = new BaseCommandResolver(this);
     }
 
     @Override
-    public void registerCommands(Object instance) {
+    public void registerCommands(@NotNull Object instance) {
         commands.add(new BaseCommandData(this, instance, null, null));
     }
 
@@ -39,16 +37,6 @@ public class BaseCommandHandler implements CommandHandler {
     @Override
     public void setHelpWriter(@NotNull CommandHelpWriter writer) {
         this.writer = writer;
-    }
-
-    @Override
-    public @NotNull CommandResolver getCommandResolver() {
-        return resolver;
-    }
-
-    @Override
-    public void setCommandResolver(@NotNull CommandResolver resolver) {
-        this.resolver = resolver;
     }
 
     @Override

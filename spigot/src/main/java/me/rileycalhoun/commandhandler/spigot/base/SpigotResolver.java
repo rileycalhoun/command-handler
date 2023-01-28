@@ -21,6 +21,7 @@ public class SpigotResolver extends BaseCommandResolver implements CommandExecut
         SpigotSubject subject = new SpigotSubject(sender);
         SpigotContext context = new SpigotContext(subject, command);
         execute(commandString.toString(), context);
+        System.out.println(commandString);
         return true;
     }
 

@@ -1,12 +1,10 @@
 package me.rileycalhoun.commandhandler.spigot.base;
 
 import me.rileycalhoun.commandhandler.core.CommandData;
-import me.rileycalhoun.commandhandler.core.CommandHandler;
-import me.rileycalhoun.commandhandler.core.annotation.Command;
+import me.rileycalhoun.commandhandler.core.CommandResolver;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandData;
 import me.rileycalhoun.commandhandler.core.base.BaseCommandHandler;
 import me.rileycalhoun.commandhandler.core.base.Utils;
-import me.rileycalhoun.commandhandler.spigot.SpigotCommandHandler;
 import me.rileycalhoun.commandhandler.spigot.TabSuggestionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -16,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class SpigotCommandData extends BaseCommandData implements me.rileycalhoun.commandhandler.spigot.SpigotCommandData {
@@ -37,7 +36,7 @@ public class SpigotCommandData extends BaseCommandData implements me.rileycalhou
 
     public SpigotCommandData(SpigotHandler handler, Object instance, @Nullable SpigotCommandData parent, @Nullable AnnotatedElement ae) {
         super(handler, instance, parent, ae);
-        if(parent == null) registerCommandToBukkit(handler, handler.plugin, this);
+        if(parent == null && name != null) registerCommandToBukkit(handler.plugin);
     }
 
     @Override
@@ -45,10 +44,21 @@ public class SpigotCommandData extends BaseCommandData implements me.rileycalhou
         return null;
     }
 
-    private void registerCommandToBukkit(SpigotHandler handler, Plugin plugin, SpigotCommandData command) {
+    @Override
+    protected BaseCommandData newCommand(BaseCommandHandler handler, Object o, BaseCommandData parent, AnnotatedElement ae) {
+        return new SpigotCommandData((SpigotHandler) handler, o, (SpigotCommandData) parent, ae);
+    }
+
+    private void registerCommandToBukkit(Plugin plugin) {
         try {
-            PluginCommand cmd = commandConstructor.newInstance(command.getName(), plugin);
+            String name = super.getName();
+            super.getDescription();
+            PluginCommand cmd = commandConstructor.newInstance(name, plugin);
             commandMap.register(plugin.getName(), cmd);
+            SpigotResolver resolver = new SpigotResolver(handler);
+            cmd.setExecutor(resolver);
+            cmd.setDescription(getDescription() == null ? "" : getDescription());
+            cmd.setAliases(Arrays.asList(getAliases()));
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

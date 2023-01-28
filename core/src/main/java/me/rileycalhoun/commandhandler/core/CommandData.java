@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CommandData {
 
-    @NotNull String getName();
+    String getName();
     @Nullable String getDescription();
     @Nullable String[] getAliases();
 

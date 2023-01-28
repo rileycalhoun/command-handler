@@ -21,10 +21,11 @@ public class BaseCommandResolver implements CommandResolver {
     public CommandData find(String name, List<CommandData> dataList) {
         CommandData data = null;
         for(CommandData cd : dataList) {
-            if(cd.getName().equalsIgnoreCase(name)) {
+            if(cd.getName() != null && cd.getName().equalsIgnoreCase(name)) {
                 data = cd;
                 break;
             } else {
+                if(cd.getAliases() == null) continue;
                 for(String alias : cd.getAliases()) {
                     if(alias == null) continue;
                     if (alias.equalsIgnoreCase(name)) {
