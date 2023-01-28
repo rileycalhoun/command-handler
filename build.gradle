@@ -3,14 +3,14 @@ plugins {
     id 'maven-publish'
 }
 
-version = "1.1.0"
+version = "1.1.2"
 
 subprojects {
     apply plugin: "java"
     apply plugin: "maven-publish"
 
-    group = "com.github.rileycalhoun"
-    version = "1.0.0"
+    group = "com.github.rileycalhoun.commandhandler"
+    version = "${this.version}"
 
     sourceCompatibility = 16
     targetCompatibility = 16
@@ -18,7 +18,8 @@ subprojects {
     publishing {
         publications {
             mavenJava(MavenPublication) {
-                groupId = "com.github.rileycalhoun.commandhandler"
+                groupId = "${group}"
+                version = "${this.version}"
                 from components.java
             }
         }
