@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'me.rileycalhoun'
+version "${this.getParent().version}"
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        // As of Gradle 5.1, you can limit this to only those
+        // dependencies you expect from it
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+}
+
+dependencies {
+    implementation project(":core")
+    implementation 'org.jetbrains:annotations:20.1.0'
+    compileOnly 'org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
