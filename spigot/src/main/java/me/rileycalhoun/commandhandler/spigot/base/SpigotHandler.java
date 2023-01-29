@@ -19,18 +19,14 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
 
     final Plugin plugin;
     final SpigotDispatcher dispatcher;
-    final CommandHelpWriter helpWriter;
 
     public SpigotHandler(@NotNull Plugin plugin) {
+        super();
+        setExceptionHandler(new SpigotExceptionHandler());
+        setHelpWriter(new BaseCommandHelpWriter());
         this.plugin = plugin;
         this.dispatcher = new SpigotDispatcher(this);
-        this.helpWriter = new BaseCommandHelpWriter();
         this.registerCommands(plugin);
-    }
-
-    @Override
-    public @NotNull CommandHelpWriter getHelpWriter() {
-        return helpWriter;
     }
 
     @Override
@@ -56,17 +52,8 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
     }
 
     @Override
-    public SpigotCommandHandler registerParameterTab(@NotNull Class<?> parameterType, @NotNull TabSuggestionProvider provider) {
-        return null;
-    }
-
-    @Override
-    public SpigotCommandHandler registerParameterTab(@NotNull Class<?> parameterType, @NotNull String providerID) {
-        return null;
-    }
-
-    @Override
     public @NotNull Plugin getPlugin() {
         return plugin;
     }
+
 }

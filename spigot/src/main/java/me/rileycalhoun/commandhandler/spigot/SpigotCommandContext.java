@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface SpigotCommandContext extends CommandContext {
 
-    @NotNull SpigotCommandSubject subject();
+    @NotNull SpigotCommandSubject getSubject();
 
-    @NotNull Command bukkitCommand();
+    @NotNull Command getBukkitCommand();
 
 }

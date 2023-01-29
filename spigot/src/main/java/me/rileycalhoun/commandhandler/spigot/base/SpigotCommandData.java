@@ -49,8 +49,6 @@ public class SpigotCommandData extends BaseCommandData implements me.rileycalhou
 
     private void registerCommandToBukkit(Plugin plugin) {
         try {
-            String name = super.getName();
-            super.getDescription();
             PluginCommand cmd = commandConstructor.newInstance(name, plugin);
             commandMap.register(plugin.getName(), cmd);
             SpigotDispatcher resolver = new SpigotDispatcher(handler);

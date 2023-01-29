@@ -114,6 +114,7 @@ public class BaseCommandData implements CommandData {
 
     @Override
     public @Nullable Object getInstance() {
+        if(this.instance == null && this.getParent() != null) return this.getParent().getInstance();
         return instance;
     }
 

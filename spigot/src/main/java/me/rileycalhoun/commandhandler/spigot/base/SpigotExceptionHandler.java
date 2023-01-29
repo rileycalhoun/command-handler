@@ -24,8 +24,11 @@ public class SpigotExceptionHandler implements ExceptionHandler {
             sender.reply(ChatColor.RED + "Invalid command: " + ChatColor.GRAY + ce.getInput());
         } else if (e instanceof SimpleCommandException) {
             sender.reply(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
-        } else if (e instanceof SenderNotPlayerException ce) {
+        } else if (e instanceof SenderNotPlayerException) {
             sender.reply(ChatColor.RED + "You must be a player to execute this command!");
+        } else {
+            sender.reply("An error occured while executing this command! Please contact your administrator for more details.");
+            e.printStackTrace();
         }
     }
 

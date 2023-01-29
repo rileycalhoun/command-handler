@@ -75,4 +75,13 @@ public class Utils {
         return new String(b);
     }
 
+    public static <T> T[] addElementsInFront(T[] elements, T element)
+    {
+        T[] newArray = Arrays.copyOf(elements, elements.length + 1);
+        newArray[0] = element;
+        System.arraycopy(elements, 0, newArray, 1, elements.length);
+
+        return newArray;
+    }
+
 }

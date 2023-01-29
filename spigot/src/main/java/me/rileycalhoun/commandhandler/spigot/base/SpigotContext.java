@@ -12,7 +12,8 @@ public record SpigotContext(SpigotCommandSubject subject, Command bukkitCommand)
         return subject;
     }
 
-    public @NotNull Command getCommand() {
+    @Override
+    public @NotNull Command getBukkitCommand() {
         return bukkitCommand;
     }
 

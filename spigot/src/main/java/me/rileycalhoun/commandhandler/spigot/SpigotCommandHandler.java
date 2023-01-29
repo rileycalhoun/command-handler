@@ -15,10 +15,6 @@ public interface SpigotCommandHandler extends CommandHandler {
 
     SpigotCommandHandler registerStaticTabSuggestion(@NotNull String providerID, @NotNull String... completions);
 
-    SpigotCommandHandler registerParameterTab(@NotNull Class<?> parameterType, @NotNull TabSuggestionProvider provider);
-
-    SpigotCommandHandler registerParameterTab(@NotNull Class<?> parameterType, @NotNull String providerID);
-
     @NotNull Plugin getPlugin();
 
     static SpigotCommandHandler create(@NotNull Plugin plugin) {

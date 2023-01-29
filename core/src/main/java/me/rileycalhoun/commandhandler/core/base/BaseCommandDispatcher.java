@@ -1,21 +1,30 @@
 package me.rileycalhoun.commandhandler.core.base;
 
 import me.rileycalhoun.commandhandler.core.*;
+import me.rileycalhoun.commandhandler.core.exception.CommandException;
 import me.rileycalhoun.commandhandler.core.exception.InvalidCommandException;
 import me.rileycalhoun.commandhandler.core.exception.MissingSubCommandException;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BaseCommandDispatcher implements CommandDispatcher {
 
     protected final CommandHandler commandHandler;
+    private final List<String> sanitizedPaths = new ArrayList<>();
 
     public BaseCommandDispatcher(CommandHandler commandHandler) {
         this.commandHandler = commandHandler;
+        sanitizePath(getClass());
+        sanitizePath(commandHandler.getClass());
     }
 
     @Override
-    public void execute(CommandContext context, String[] argsArray) {
+    public void execute(CommandContext context, String... argsArray) {
         ArgumentStack args = new LinkedArgumentStack(argsArray);
         CommandData command = null;
         try {
@@ -34,20 +43,34 @@ public class BaseCommandDispatcher implements CommandDispatcher {
                     commandHandler,
                     command,
                     context,
-                    t
+                    t.getCause() != null ? t.getCause() : t
             );
         }
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void invokeCommand(CommandData command, ArgumentStack args, CommandContext context) {
+    public void invokeCommand(CommandData command, ArgumentStack args, CommandContext context) throws Throwable {
         try {
-            if (command.getInstance() == null && command.getParent() != null)
-                command.getMethod().invoke(command.getParent().getInstance(), context, args);
-            else command.getMethod().invoke(command.getInstance(), context, args);
-        } catch (InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            command.getMethod().invoke(command.getInstance(), context, args);
+        } catch (Throwable throwable) {
+            throw sanitizeStackTrace(throwable);
         }
+    }
+
+    protected Throwable sanitizeStackTrace(Throwable throwable) {
+        List<StackTraceElement> elements = new ArrayList<>();
+        Collections.addAll(elements, throwable.getStackTrace());
+        elements.removeIf(t -> t.getClassName().equals(getClass().getName()));
+        elements.removeIf(t -> t.getClassName().equals(BaseCommandDispatcher.class.getName()));
+        elements.removeIf(t -> t.getClassName().equals(Method.class.getName()));
+        elements.removeIf(t -> t.getClassName().equals(BaseCommandHandler.class.getName()));
+        elements.removeIf(t -> sanitizedPaths.contains(t.getClassName()));
+        throwable.setStackTrace(elements.toArray(new StackTraceElement[0]));
+        return throwable;
+    }
+
+    protected void sanitizePath(@NotNull Class<?> type) {
+        sanitizedPaths.add(type.getName());
     }
 
     @SuppressWarnings("ConstantConditions")
