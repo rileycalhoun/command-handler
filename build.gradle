@@ -1,5 +1,4 @@
 plugins {
-    id 'java'
     id 'maven-publish'
     id "org.sonarqube" version "3.5.0.2730"
 }
@@ -18,13 +17,24 @@ subprojects {
     apply plugin: "java"
     apply plugin: "maven-publish"
 
-    group = "com.github.rileycalhoun.commandhandler"
+    group = "me.rileycalhoun.commandhandler"
     version = "${this.version}"
 
     sourceCompatibility = 16
     targetCompatibility = 16
 
     publishing {
+        repositories {
+            maven {
+                name = "OSSRH"
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
+                }
+            }
+        }
+
         publications {
             mavenJava(MavenPublication) {
                 groupId = "${group}"
