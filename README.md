@@ -2,17 +2,18 @@
 A generic command handler with implementations for Spigot, the CLI and more on the way.
 
 ## Gradle
+Build with: ``./gradlew clean build publishToMavenLocal``
 
 ```gradle
 repositories {
-    maven { url 'https://jitpack.io' }
+    mavenLocal()
 }
 
 dependencies {
     // Core is required
-    implementation 'com.github.rileycalhoun.commandhandler:core:1.0.0'
+    implementation 'me.rileycalhoun.commandhandler:core:1.2.1'
     // Any other implementation you need
-    implementation 'com.github.rileycalhoun.commandhandler:<implementation>:1.0.0'
+    implementation 'me.rileycalhoun.commandhandler:<implementation>:1.2.1'
 }
 ```
 
