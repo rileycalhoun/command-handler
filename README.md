@@ -11,9 +11,9 @@ repositories {
 
 dependencies {
     // Core is required
-    implementation 'me.rileycalhoun.commandhandler:core:1.0.0'
+    implementation 'me.rileycalhoun.commandhandler:core:1.2.1'
     // Any other implementation you need
-    implementation 'me.rileycalhoun.commandhandler:<implementation>:1.0.0'
+    implementation 'me.rileycalhoun.commandhandler:<implementation>:1.2.1'
 }
 ```
 
