@@ -24,6 +24,7 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
         super();
         setExceptionHandler(new SpigotExceptionHandler());
         setHelpWriter(new BaseCommandHelpWriter());
+        setCommandDispatcher(new SpigotDispatcher(this));
         this.plugin = plugin;
         this.dispatcher = new SpigotDispatcher(this);
         this.registerCommands(plugin);

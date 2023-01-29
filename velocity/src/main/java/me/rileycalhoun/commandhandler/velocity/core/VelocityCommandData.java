@@ -39,4 +39,5 @@ public class VelocityCommandData extends BaseCommandData implements me.rileycalh
         VelocityCommandHandler velocityHandler = (VelocityCommandHandler)handler;
         velocityHandler.getProxyServer().getCommandManager().register(this.getName(), executor, this.getAliases());
     }
+
 }

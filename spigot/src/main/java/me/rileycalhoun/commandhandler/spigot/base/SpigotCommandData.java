@@ -51,8 +51,7 @@ public class SpigotCommandData extends BaseCommandData implements me.rileycalhou
         try {
             PluginCommand cmd = commandConstructor.newInstance(name, plugin);
             commandMap.register(plugin.getName(), cmd);
-            SpigotDispatcher resolver = new SpigotDispatcher(handler);
-            cmd.setExecutor(resolver);
+            cmd.setExecutor(((SpigotDispatcher)handler.getCommandDispatcher()));
             cmd.setDescription(getDescription() == null ? "" : getDescription());
             cmd.setAliases(Arrays.asList(getAliases()));
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {

@@ -19,6 +19,7 @@ public class VelocityHandler extends BaseCommandHandler implements VelocityComma
     public VelocityHandler(Object plugin, ProxyServer proxyServer) {
         super();
         setExceptionHandler(new VelocityExceptionHandler());
+        setCommandDispatcher(new VelocityDispatcher(this));
         this.proxyServer = proxyServer;
         this.plugin = proxyServer.getPluginManager().fromInstance(plugin);
         this.registerCommands(plugin);

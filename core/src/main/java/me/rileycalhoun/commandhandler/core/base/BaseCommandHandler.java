@@ -1,6 +1,7 @@
 package me.rileycalhoun.commandhandler.core.base;
 
 import me.rileycalhoun.commandhandler.core.CommandData;
+import me.rileycalhoun.commandhandler.core.CommandDispatcher;
 import me.rileycalhoun.commandhandler.core.CommandHandler;
 import me.rileycalhoun.commandhandler.core.CommandHelpWriter;
 import me.rileycalhoun.commandhandler.core.exception.ExceptionHandler;
@@ -15,10 +16,12 @@ public class BaseCommandHandler implements CommandHandler {
     protected final Map<String, CommandData> commands = new HashMap<>();
     private ExceptionHandler exceptionHandler;
     private CommandHelpWriter writer;
+    private CommandDispatcher dispatcher;
 
     public BaseCommandHandler () {
-        this.exceptionHandler = new DefaultExceptionHandler();
-        this.writer = new BaseCommandHelpWriter();
+        setExceptionHandler(new DefaultExceptionHandler());
+        setHelpWriter(new BaseCommandHelpWriter());
+        setCommandDispatcher(new BaseCommandDispatcher(this));
     }
 
     @Override
@@ -38,6 +41,16 @@ public class BaseCommandHandler implements CommandHandler {
     @Override
     public void setHelpWriter(@NotNull CommandHelpWriter writer) {
         this.writer = writer;
+    }
+
+    @Override
+    public @NotNull CommandDispatcher getCommandDispatcher() {
+        return dispatcher;
+    }
+
+    @Override
+    public void setCommandDispatcher(@NotNull CommandDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
     }
 
     @Override

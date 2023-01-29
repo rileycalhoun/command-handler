@@ -17,6 +17,9 @@ public interface CommandHandler {
     @NotNull ExceptionHandler getExceptionHandler();
     void setExceptionHandler(@NotNull ExceptionHandler exceptionHandler);
 
+    @NotNull CommandDispatcher getCommandDispatcher();
+    void setCommandDispatcher(@NotNull CommandDispatcher commandDispatcher);
+
     @NotNull @UnmodifiableView Map<String, CommandData> getCommands();
 
     default void registerCommands(@NotNull Object... objects) {

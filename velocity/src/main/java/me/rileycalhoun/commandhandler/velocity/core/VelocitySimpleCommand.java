@@ -13,7 +13,7 @@ public class VelocitySimpleCommand implements SimpleCommand {
 
     @Override
     public void execute(Invocation invocation) {
-        VelocityDispatcher dispatcher = new VelocityDispatcher(commandHandler);
+        VelocityDispatcher dispatcher = (VelocityDispatcher) commandHandler.getCommandDispatcher();
         dispatcher.execute(this, invocation);
     }
 
