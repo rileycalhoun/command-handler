@@ -1,6 +1,6 @@
 package me.rileycalhoun.commandhandler.spigot;
 
-import me.rileycalhoun.commandhandler.core.CommandContext;
+import me.rileycalhoun.commandhandler.common.CommandContext;
 import org.bukkit.command.Command;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,6 +1,6 @@
 package me.rileycalhoun.commandhandler.spigot;
 
-import me.rileycalhoun.commandhandler.core.CommandData;
+import me.rileycalhoun.commandhandler.common.HandledCommand;
 import org.bukkit.command.Command;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ public interface TabSuggestionProvider {
     @NotNull
     Collection<String> getSuggestions(@NotNull List<String> args,
                                                @NotNull SpigotCommandSubject sender,
-                                               @NotNull CommandData command,
+                                               @NotNull HandledCommand command,
                                                @NotNull Command bukkitCommand) throws Throwable;
 
     @Contract("null -> this; !null -> !null")

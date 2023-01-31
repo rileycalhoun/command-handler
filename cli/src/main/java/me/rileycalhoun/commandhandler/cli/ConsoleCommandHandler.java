@@ -1,7 +1,7 @@
 package me.rileycalhoun.commandhandler.cli;
 
 import me.rileycalhoun.commandhandler.cli.base.CLIHandler;
-import me.rileycalhoun.commandhandler.core.CommandHandler;
+import me.rileycalhoun.commandhandler.common.CommandHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;

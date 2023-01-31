@@ -1,7 +1,7 @@
 package me.rileycalhoun.commandhandler.spigot;
 
-import me.rileycalhoun.commandhandler.core.CommandHandler;
-import me.rileycalhoun.commandhandler.spigot.base.SpigotHandler;
+import me.rileycalhoun.commandhandler.common.CommandHandler;
+import me.rileycalhoun.commandhandler.spigot.core.SpigotHandler;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +14,10 @@ public interface SpigotCommandHandler extends CommandHandler {
     SpigotCommandHandler registerStaticTabSuggestion(@NotNull String providerID, @NotNull Collection<String> completions);
 
     SpigotCommandHandler registerStaticTabSuggestion(@NotNull String providerID, @NotNull String... completions);
+
+    SpigotCommandHandler registerParameterTab(@NotNull Class<?> parameterType, @NotNull TabSuggestionProvider provider);
+
+    SpigotCommandHandler registerParameterTab(@NotNull Class<?> parameterType, @NotNull String providerID);
 
     @NotNull Plugin getPlugin();
 

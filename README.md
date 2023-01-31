@@ -10,9 +10,10 @@ repositories {
 }
 
 dependencies {
-    // Core is required
-    implementation 'me.rileycalhoun.commandhandler:core:1.2.1'
-    // Any other implementation you need
+    /* common is always required */ 
+    implementation 'me.rileycalhoun.commandhandler:common:1.2.1'
+    
+    /* Add any other implementation(s) you may need (spigot, velocity, cli...) */
     implementation 'me.rileycalhoun.commandhandler:<implementation>:1.2.1'
 }
 ```
@@ -28,7 +29,7 @@ public class Commands {
     }
     
     @Command(name = "command", description = "An example command.", aliases = { "c" })
-    public void execute(CommandContext, String[] args) {
+    public void execute(CommandContext context, String[] args) {
         context.getSubject.reply("This is a reply!");
     }
     

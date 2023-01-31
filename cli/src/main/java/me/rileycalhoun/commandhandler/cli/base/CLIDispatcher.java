@@ -1,15 +1,17 @@
 package me.rileycalhoun.commandhandler.cli.base;
 
-import me.rileycalhoun.commandhandler.cli.ConsoleCommandHandler;
-import me.rileycalhoun.commandhandler.core.base.BaseCommandDispatcher;
+import me.rileycalhoun.commandhandler.common.CommandContext;
+import me.rileycalhoun.commandhandler.common.core.BaseDispatcher;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.PrintStream;
 import java.util.Scanner;
 
-public class CLIDispatcher extends BaseCommandDispatcher {
+public class CLIDispatcher extends BaseDispatcher {
 
-    private final ConsoleCommandHandler commandHandler;
+    private final CLIHandler commandHandler;
 
-    public CLIDispatcher(ConsoleCommandHandler commandHandler) {
+    public CLIDispatcher(CLIHandler commandHandler) {
         super(commandHandler);
         this.commandHandler = commandHandler;
     }
@@ -17,8 +19,21 @@ public class CLIDispatcher extends BaseCommandDispatcher {
     void begin(Scanner reader) {
         while(reader.hasNext()) {
             String input = reader.nextLine();
-            super.execute(new ClIContext(commandHandler.getSubject()), input.split(" "));
+            execute(((CLIHandler) handler).console, () -> ((CLIHandler) handler).console, SPLIT.split(input));
         }
+    }
+
+    @Override
+    protected boolean isPossibleSender(@NotNull Class<?> v) {
+        return PrintStream.class.isAssignableFrom(v);
+    }
+
+    @Override
+    protected Object handlePossibleSender(Class<?> type, @NotNull CommandContext context) {
+        CLISubject subject = (CLISubject) context.getSubject();
+        if(PrintStream.class.isAssignableFrom(type))
+            return subject.out;
+        return null;
     }
 
 }

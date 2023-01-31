@@ -1,5 +1,5 @@
 rootProject.name = 'command-handler'
-include 'core'
+include 'common'
 include 'cli'
 include 'spigot'
-include 'velocity'
+
