@@ -1,7 +1,5 @@
 package me.rileycalhoun.commandhandler.spigot.core;
 
-import annotation.CommandPermission;
-import annotation.TabCompletion;
 import me.rileycalhoun.commandhandler.common.ArgumentStack;
 import me.rileycalhoun.commandhandler.common.CommandParameter;
 import me.rileycalhoun.commandhandler.common.ParameterResolver;
@@ -9,6 +7,9 @@ import me.rileycalhoun.commandhandler.common.core.BaseHandledCommand;
 import me.rileycalhoun.commandhandler.common.core.BaseCommandHandler;
 import me.rileycalhoun.commandhandler.common.core.Utils;
 import me.rileycalhoun.commandhandler.spigot.TabSuggestionProvider;
+import me.rileycalhoun.commandhandler.spigot.annotation.CommandPermission;
+import me.rileycalhoun.commandhandler.spigot.annotation.TabCompletion;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;

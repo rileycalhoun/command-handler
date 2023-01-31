@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'me.rileycalhoun.commandhandler'
+version "${this.getParent().version}"
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+
+dependencies {
+    implementation project(":common")
+    implementation 'org.jetbrains:annotations:20.1.0'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}

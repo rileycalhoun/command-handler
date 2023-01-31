@@ -1,6 +1,5 @@
 package me.rileycalhoun.commandhandler.spigot.core;
 
-import annotation.TabResolver;
 import com.google.common.collect.ImmutableList;
 import me.rileycalhoun.commandhandler.common.CommandContext;
 import me.rileycalhoun.commandhandler.common.CommandSubject;
@@ -9,6 +8,8 @@ import me.rileycalhoun.commandhandler.common.ParameterResolver;
 import me.rileycalhoun.commandhandler.common.core.BaseCommandHandler;
 import me.rileycalhoun.commandhandler.common.exception.InvalidValueException;
 import me.rileycalhoun.commandhandler.spigot.*;
+import me.rileycalhoun.commandhandler.spigot.annotation.TabResolver;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;

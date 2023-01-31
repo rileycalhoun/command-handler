@@ -1,4 +1,4 @@
-package annotation;
+package me.rileycalhoun.commandhandler.spigot.annotation;
 
 import org.bukkit.permissions.PermissionDefault;
 
