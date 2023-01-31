@@ -2,19 +2,18 @@
 A generic command handler with implementations for Spigot, the CLI and more on the way.
 
 ## Gradle
-Build with: ``./gradlew clean build publishToMavenLocal``
-
 ```gradle
 repositories {
-    mavenLocal()
+    mavenCentral()
+    maven { "https://maven.rileycalhoun.me" }
 }
 
 dependencies {
     /* common is always required */ 
-    implementation 'me.rileycalhoun.commandhandler:common:1.2.1'
+    implementation 'me.rileycalhoun.commandhandler:common:1.3.0'
     
-    /* Add any other implementation(s) you may need (spigot, velocity, cli...) */
-    implementation 'me.rileycalhoun.commandhandler:<implementation>:1.2.1'
+    /* Add any other implementation(s) you may need (spigot, bungee, cli...) */
+    implementation 'me.rileycalhoun.commandhandler:<implementation>:1.3.0'
 }
 ```
 
