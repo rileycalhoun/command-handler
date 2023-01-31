@@ -28,7 +28,7 @@ public class Commands {
         handler.requestInput();
     }
     
-    @Command(name = "command", description = "An example command.", aliases = { "c" })
+    @Command(name = "command", aliases = { "c" })
     public void execute(CommandContext context, String[] args) {
         context.getSubject.reply("This is a reply!");
     }
@@ -38,7 +38,7 @@ public class Commands {
 
 ## Sub-Command Usage (CLI)
 ```java
-@Command(name = "subcommands", description = "An example command with sub commands.", aliases = { "ex" })
+@Command(name = "subcommands", aliases = { "ex" })
 public class SubCommands {
 
     public static void main(String[] args) {
@@ -47,12 +47,12 @@ public class SubCommands {
         handler.requestInput();
     }
     
-    @SubCommand(name = "first", description = "The first sub command!", aliases = {"1"})
+    @SubCommand(name = "first", aliases = {"1"})
     public void first(CommandContext context, String[] args) {
         context.getSubject().reply("This is the first reply!");
     }
 
-    @SubCommand(name = "second", description = "The second sub command!", aliases = {"2"})
+    @SubCommand(name = "second", aliases = {"2"})
     public void second(CommandContext context, String[] args) {
         context.getSubject().reply("This is the second reply!");
     }
