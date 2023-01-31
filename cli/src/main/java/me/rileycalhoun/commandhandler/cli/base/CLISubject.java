@@ -11,7 +11,7 @@ public class CLISubject implements ConsoleSubject {
     private static final String NAME = "Console";
     private static final UUID UUID = new UUID(0, 0);
 
-    private final PrintStream out;
+    final PrintStream out;
 
     public CLISubject(PrintStream out)
     {
