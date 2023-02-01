@@ -28,8 +28,8 @@ public class Commands {
     }
     
     @Command(name = "command", aliases = { "c" })
-    public void execute(CommandContext context, String[] args) {
-        context.getSubject.reply("This is a reply!");
+    public String execute() {
+        return "You can return a string to send a message to the executor!";
     }
     
 }
@@ -47,13 +47,13 @@ public class SubCommands {
     }
     
     @SubCommand(name = "first", aliases = {"1"})
-    public void first(CommandContext context, String[] args) {
-        context.getSubject().reply("This is the first reply!");
+    public void first(CommandSubject subject) {
+        subject.reply("Or you can reply with a method!");
     }
 
     @SubCommand(name = "second", aliases = {"2"})
-    public void second(CommandContext context, String[] args) {
-        context.getSubject().reply("This is the second reply!");
+    public void second(CommandSubject subject, String message) {
+        context.getSubject().reply("Or you can get arguments: " + message);
     }
     
 }
