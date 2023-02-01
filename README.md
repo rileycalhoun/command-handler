@@ -10,10 +10,10 @@ repositories {
 
 dependencies {
     /* common is always required */ 
-    implementation 'me.rileycalhoun.commandhandler:common:1.3.0'
+    implementation 'me.rileycalhoun.commandhandler:common:{VERSION}'
     
     /* Add any other implementation(s) you may need (spigot, bungee, cli...) */
-    implementation 'me.rileycalhoun.commandhandler:<implementation>:1.3.0'
+    implementation 'me.rileycalhoun.commandhandler:<implementation>:{VERSION}'
 }
 ```
 
