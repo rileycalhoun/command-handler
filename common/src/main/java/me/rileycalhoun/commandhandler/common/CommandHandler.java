@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 public interface CommandHandler {
 
     CommandHandler registerCommands(@NotNull Object... commands);
+    CommandHandler registerCommands(@NotNull String pkgName);
 
     CommandHandler registerResolvers(@NotNull Object... resolvers);
 

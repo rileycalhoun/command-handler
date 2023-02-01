@@ -1,10 +1,7 @@
 package me.rileycalhoun.commandhandler.common.core;
 
 import me.rileycalhoun.commandhandler.common.*;
-import me.rileycalhoun.commandhandler.common.annotation.ConditionEvaluator;
-import me.rileycalhoun.commandhandler.common.annotation.ContextResolver;
-import me.rileycalhoun.commandhandler.common.annotation.Dependency;
-import me.rileycalhoun.commandhandler.common.annotation.ValueResolver;
+import me.rileycalhoun.commandhandler.common.annotation.*;
 import me.rileycalhoun.commandhandler.common.exception.ExceptionHandler;
 import me.rileycalhoun.commandhandler.common.exception.InvalidValueException;
 import me.rileycalhoun.commandhandler.common.exception.MissingPermissionException;
@@ -12,10 +9,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 import org.jetbrains.annotations.UnmodifiableView;
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Function;
@@ -91,6 +95,30 @@ public class BaseCommandHandler implements CommandHandler {
             addCommand(new BaseHandledCommand(this, instance, null, null));
             setDependencies(instance);
         }
+        return this;
+    }
+
+    @Override
+    public CommandHandler registerCommands(@NotNull String pkgName) {
+        System.setProperty("org.slf4j.simpleLogger.log.org.reflections", "off");
+        List<ClassLoader> classLoadersList = new LinkedList<>();
+        classLoadersList.add(ClasspathHelper.contextClassLoader());
+        classLoadersList.add(ClasspathHelper.staticClassLoader());
+
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .setScanners(new SubTypesScanner(false), Scanners.Resources)
+                .setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
+                .filterInputsBy(new FilterBuilder().includePackage(pkgName)));
+
+        Set<Class<?>> clazzes = reflections.getSubTypesOf(Object.class);
+        clazzes.forEach(clazz -> {
+            try {
+                Object o = clazz.getDeclaredConstructor().newInstance();
+                registerCommands(o);
+            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                System.out.println("Unable to register commands from class " + clazz.getName() + ": " + e.getMessage());
+            }
+        });
         return this;
     }
 

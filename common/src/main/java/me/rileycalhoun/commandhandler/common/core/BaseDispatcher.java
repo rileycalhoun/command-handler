@@ -207,14 +207,14 @@ public abstract class BaseDispatcher implements CommandDispatcher {
     }
 
     protected Throwable sanitizeStackTrace(Throwable throwable) {
-        List<StackTraceElement> elements = new ArrayList<>();
-        Collections.addAll(elements, throwable.getStackTrace());
-        elements.removeIf(t -> t.getClassName().equals(getClass().getName()));
-        elements.removeIf(t -> t.getClassName().equals(BaseDispatcher.class.getName()));
-        elements.removeIf(t -> t.getClassName().equals(MethodHandle.class.getName()));
-        elements.removeIf(t -> t.getClassName().equals(BaseCommandHandler.class.getName()));
-        elements.removeIf(t -> sanitizedPaths.contains(t.getClassName()));
-        throwable.setStackTrace(elements.toArray(new StackTraceElement[0]));
+//        List<StackTraceElement> elements = new ArrayList<>();
+//        Collections.addAll(elements, throwable.getStackTrace());
+//        elements.removeIf(t -> t.getClassName().equals(getClass().getName()));
+//        elements.removeIf(t -> t.getClassName().equals(BaseDispatcher.class.getName()));
+//        elements.removeIf(t -> t.getClassName().equals(MethodHandle.class.getName()));
+//        elements.removeIf(t -> t.getClassName().equals(BaseCommandHandler.class.getName()));
+//        elements.removeIf(t -> sanitizedPaths.contains(t.getClassName()));
+//        throwable.setStackTrace(elements.toArray(new StackTraceElement[0]));
         return throwable;
     }
 
