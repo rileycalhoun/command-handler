@@ -81,6 +81,8 @@ public class SpigotHandledCommand extends BaseHandledCommand implements me.riley
         if(permission != null) {
             Permission p = new Permission(permission.value(), permission.access());
             this.permission = sender -> ((SpigotSubject) sender).getSender().hasPermission(p);
+        } else if (this.getParent() != null) {
+            this.permission = this.getParent().getPermission();
         }
     }
 

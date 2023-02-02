@@ -31,7 +31,7 @@ public record SpigotSubject(CommandSender sender) implements SpigotCommandSubjec
 
     @Override
     public CommandSender getSender() {
-        return null;
+        return sender;
     }
 
     @Override
