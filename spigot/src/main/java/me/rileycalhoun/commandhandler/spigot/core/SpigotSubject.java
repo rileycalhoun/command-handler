@@ -1,5 +1,6 @@
 package me.rileycalhoun.commandhandler.spigot.core;
 
+import me.rileycalhoun.commandhandler.common.core.Utils;
 import me.rileycalhoun.commandhandler.spigot.SpigotCommandSubject;
 import me.rileycalhoun.commandhandler.spigot.SenderNotPlayerException;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,7 @@ public record SpigotSubject(CommandSender sender) implements SpigotCommandSubjec
 
     @Override
     public void reply(@NotNull String message) {
-        sender.sendMessage(message);
+        sender.sendMessage(Utils.colorize(message));
     }
 
     @Override

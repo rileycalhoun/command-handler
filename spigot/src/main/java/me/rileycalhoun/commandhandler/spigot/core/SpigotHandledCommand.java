@@ -45,13 +45,12 @@ public class SpigotHandledCommand extends BaseHandledCommand implements me.riley
 
     private static final Pattern BY_WALL = Pattern.compile("|");
     private final List<TabSuggestionProvider> tabCompletions = new ArrayList<>();
-    private final Plugin plugin;
 
     public SpigotHandledCommand(Plugin plugin, SpigotHandler handler, Object instance, @Nullable SpigotHandledCommand parent, @Nullable AnnotatedElement ae) {
         super(handler, instance, parent, ae);
-        this.plugin = plugin;
         setProperties2();
-        if(parent == null && name != null) registerCommandToBukkit(plugin);
+        if(parent == null && name != null)
+            registerCommandToBukkit(plugin);
     }
 
     private void setProperties2() {
@@ -92,8 +91,8 @@ public class SpigotHandledCommand extends BaseHandledCommand implements me.riley
     }
 
     @Override
-    protected BaseHandledCommand newCommand(BaseCommandHandler handler, Object o, BaseHandledCommand parent, AnnotatedElement ae) {
-        return new SpigotHandledCommand(this.plugin, (SpigotHandler) handler, o, (SpigotHandledCommand) parent, ae);
+    protected SpigotHandledCommand newCommand(BaseCommandHandler handler, Object o, BaseHandledCommand parent, AnnotatedElement ae) {
+        return new SpigotHandledCommand(((SpigotHandler)handler).getPlugin(), (SpigotHandler) handler, o, (SpigotHandledCommand) parent, ae);
     }
 
     private void registerCommandToBukkit(Plugin plugin) {

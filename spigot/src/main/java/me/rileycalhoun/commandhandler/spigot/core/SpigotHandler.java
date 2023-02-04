@@ -37,6 +37,7 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
 
     public SpigotHandler(@NotNull Plugin plugin) {
         super();
+        if(plugin == null) System.out.println("null here as well");
         this.plugin = plugin;
         registerDependency((Class) plugin.getClass(), plugin);
         registerTypeResolver(Player.class, (a, b, parameter) -> {
@@ -134,10 +135,12 @@ public class SpigotHandler extends BaseCommandHandler implements SpigotCommandHa
     @Override
     public SpigotHandler registerCommands(@NotNull Object... instances) {
         for(Object instance : instances) {
-            SpigotHandledCommand command = new SpigotHandledCommand(plugin, this, instance, null, null);
+            if(getPlugin() == null) System.out.println("getPlugin is null");
+            SpigotHandledCommand command = new SpigotHandledCommand(getPlugin(), this, instance, null, null);
             if(command.getName() != null) addCommand(command);
             setDependencies(instance);
         }
+
         return this;
     }
 

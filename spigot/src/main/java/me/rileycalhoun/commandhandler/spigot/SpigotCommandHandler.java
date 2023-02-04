@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
+import static me.rileycalhoun.commandhandler.common.core.Utils.n;
+
 public interface SpigotCommandHandler extends CommandHandler {
 
     SpigotCommandHandler registerTabSuggestion(@NotNull String providerID, @NotNull TabSuggestionProvider provider);
@@ -22,7 +24,7 @@ public interface SpigotCommandHandler extends CommandHandler {
     @NotNull Plugin getPlugin();
 
     static SpigotCommandHandler create(@NotNull Plugin plugin) {
-        return new SpigotHandler(plugin);
+        return new SpigotHandler(n(plugin, "Plugin cannot be null!"));
     }
 
 
