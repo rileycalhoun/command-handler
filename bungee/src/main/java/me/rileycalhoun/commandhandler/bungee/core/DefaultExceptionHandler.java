@@ -21,8 +21,12 @@ import me.rileycalhoun.commandhandler.common.exception.MissingParameterException
 import me.rileycalhoun.commandhandler.common.exception.MissingPermissionException;
 import me.rileycalhoun.commandhandler.common.exception.ResolverFailedException;
 import me.rileycalhoun.commandhandler.common.exception.SimpleCommandException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DefaultExceptionHandler implements ExceptionHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(DefaultExceptionHandler.class.getName());
 
     private static final String VOWELS = "aeiou";
     public static final DefaultExceptionHandler INSTANCE = new DefaultExceptionHandler();
@@ -57,7 +61,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
             sender.reply("&cYou must wait &e" + ce.getTimeFancy() + " &cbefore using this command again.");
         } else {
             sender.reply("&cAn error occured while executing this command. Check console for details.");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Unhandled exception while executing a command", e);
         }
     }
 
