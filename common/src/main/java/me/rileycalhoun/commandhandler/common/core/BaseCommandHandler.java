@@ -26,8 +26,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static me.rileycalhoun.commandhandler.common.core.Utils.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BaseCommandHandler implements CommandHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(BaseCommandHandler.class.getName());
 
     final Map<String, HandledCommand> commands = new HashMap<>();
     final Map<String, CommandCondition> conditions = new HashMap<>();
@@ -116,7 +120,7 @@ public class BaseCommandHandler implements CommandHandler {
                 Object o = clazz.getDeclaredConstructor().newInstance();
                 registerCommands(o);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                System.out.println("Unable to register commands from class " + clazz.getName() + ": " + e.getMessage());
+                LOGGER.log(Level.WARNING, "Unable to register commands from class " + clazz.getName(), e);
             }
         });
         return this;

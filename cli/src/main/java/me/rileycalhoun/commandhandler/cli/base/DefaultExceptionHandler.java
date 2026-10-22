@@ -7,8 +7,12 @@ import me.rileycalhoun.commandhandler.common.HandledCommand;
 import me.rileycalhoun.commandhandler.common.exception.*;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DefaultExceptionHandler implements ExceptionHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(DefaultExceptionHandler.class.getName());
 
     private static final String VOWELS = "aeiou";
     public static DefaultExceptionHandler INSTANCE = new DefaultExceptionHandler();
@@ -38,7 +42,7 @@ public class DefaultExceptionHandler implements ExceptionHandler {
             sender.reply(e.getMessage());
         } else {
             sender.reply("An error occured while executing this command. Check console for details.");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Unhandled exception while executing a command", e);
         }
     }
 
